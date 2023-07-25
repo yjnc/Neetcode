@@ -27,7 +27,6 @@ class Solution:
         cols = [set() for _ in range(9)]
         boxes = [[set() for _ in range(3)] for _ in range(3)]
 
-        # go through rows
         for i in range(9):
             for j in range(9):
                 num = board[i][j]

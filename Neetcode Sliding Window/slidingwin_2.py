@@ -1,11 +1,13 @@
 class Solution:
     def lengthOfLongestSubstring(self, s: str) -> int:
         
-        # Sliding window: needs two pointers, left & right
-        # Start iterating down until we hit a duplicate,
-        # Remove until duplicate is removed
-        # Then continue sliding down the string
-        # Keep track of the longest length
+        '''
+        Sliding window: needs two pointers, left & right
+        Start iterating down until we hit a duplicate,
+        Remove until duplicate is removed
+        Then continue sliding down the string
+        Keep track of the longest length
+        '''
         
         
         chars = set()
@@ -13,7 +15,8 @@ class Solution:
         max_len = 0
         
         for r in range(len(s)):
-            while s[r] in chars: # Duplicate situation
+            # If duplicates:
+            while s[r] in chars: 
                 chars.remove(s[l]) # Remove leftmost char in string from set
                 l += 1 # Increment the left pointer by one, ie. slide down
                 

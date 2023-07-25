@@ -2,13 +2,15 @@ from collections import defaultdict
 class Solution:
     def characterReplacement(self, s: str, k: int) -> int:
         
-        # Brute force: check every substring, will be O(n^2) 
-        # Alt Solution:
-        # Establish window with l, r pointers
-        # Increment count of chars for s[r]
-        # Take window len - most freq char count and check if <= to k
-        # If so, valid so increment r by one and repeat process
-        # If invalid, increment l by one and repeat process
+        '''
+        Brute force: check every substring, will be O(n^2) 
+        Alt Solution:
+        Establish window with l, r pointers
+        Increment count of chars for s[r]
+        Take window len - most freq char count and check if <= to k
+        If so, valid so increment r by one and repeat process
+        If invalid, increment l by one and repeat process
+        '''
         
         # Using helper function exceeds time limit:
         
@@ -45,7 +47,7 @@ class Solution:
         
         for r in range(len(s)):
             # Count occurences of each char
-            count[s[r]] = 1 + count.get(s[r], 0) # if the char dne in dictionary, ", 0" ensures we set default value to 0
+            count[s[r]] = 1 + count.get(s[r], 0) # if the char dne in dictionary, "0" ensures we set default value to 0
             # Update to the most freq occurence value
             mode = max(mode, count[s[r]])
             

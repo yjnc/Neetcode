@@ -84,7 +84,7 @@ class Solution:
             target[s1[i]] += 1
         print("target:", target)
         
-        # Sort of like n=0 or n=1 in inductive proofs
+        # Sort of like n=0 or n=1 step in inductive proofs
         # Check if first window contains the right letters
         have = defaultdict(int)
         for i in range(len(s1)):

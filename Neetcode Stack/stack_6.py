@@ -1,7 +1,5 @@
 class Solution:
     def carFleet(self, target: int, position: list[int], speed: list[int]) -> int:
-        
-        
         '''
         cars can't exceed target integer
         cars with highest starting pos has higher chance of arriving at target first
