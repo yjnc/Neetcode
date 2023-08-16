@@ -1,29 +1,36 @@
 class Solution:
     def search(self, nums: list[int], target: int) -> int:
-        # Binary Search solution
+        '''
+        array nums sorted in ascending order with distinct values
+        nums is possibly rotated at an unknown pivot index
         
-        # l, r = 0, len(nums) - 1
+        given nums after the possible rotation and target, return index of target if in nums, else -1
+        O(log n) time
+        '''
         
-        # while l <= r:
-        #     mid = (l + r) // 2
+        # Binary Search O(log n) Solution 
+        l, r = 0, len(nums) - 1
+        
+        while l <= r:
+            mid = (l + r) // 2
             
-        #     if nums[mid] == target:
-        #         return mid
+            if nums[mid] == target:
+                return mid
             
-        #     elif nums[l] <= nums[mid]:
-        #         if target > nums[mid] or target < nums[l]:
-        #             l = mid + 1
-        #         else:
-        #             r = mid - 1                
-        #     else:
-        #         if target < nums[mid] or target > nums[r]:
-        #             r = mid - 1
-        #         else:
-        #             l = mid + 1
+            elif nums[l] <= nums[mid]:
+                if target > nums[mid] or target < nums[l]:
+                    l = mid + 1
+                else:
+                    r = mid - 1                
+            else:
+                if target < nums[mid] or target > nums[r]:
+                    r = mid - 1
+                else:
+                    l = mid + 1
                     
-        # return -1          
+        return -1          
         
-        # Alternate Solution
+        # Alternate O(n) Solution 
         if target in nums:
             return nums.index(target)
         

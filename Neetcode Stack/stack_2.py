@@ -7,20 +7,33 @@ class MinStack:
         self.minStack = []
 
     def push(self, val: int) -> None:
+        '''
+        Push element val onto stack
+        '''
         self.stack.append(val)
+        
+        # Append min value to min stack
         val = min(val, self.minStack[-1] if self.minStack else val)
         self.minStack.append(val)
 
     def pop(self) -> None:
-        #pop() automatically pops the last item [-1]
+        '''
+        Remove element on top of the stack
+        '''
         self.stack.pop()
         self.minStack.pop()
         
 
     def top(self) -> int:
+        '''
+        Get top element of the stack
+        '''
         return self.stack[-1]
 
     def getMin(self) -> int:
+        '''
+        Retrieve min element in the stack
+        '''
         return self.minStack[-1]
         
 

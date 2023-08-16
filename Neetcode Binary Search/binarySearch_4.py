@@ -1,5 +1,10 @@
 class Solution:
     def findMin(self, nums: list[int]) -> int:
+        '''
+        array of length n sorted in ascending order is rotated between 1 and n times
+        given nums of unique elements, return min element of this array
+        O(log n) 
+        '''
         l, r = 0, len(nums) - 1
         minNum = float("inf")
         

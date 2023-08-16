@@ -1,6 +1,11 @@
 import math
 class Solution:
     def minEatingSpeed(self, piles: list[int], h: int) -> int:
+        '''
+        n piles of bananas, ith pile has piles[i] bananas, has h hours to eat with speed of k
+        choose some pile of bananas and eat k from that pile, if less than k bananas, eat all of them and not eat anymore that hour
+        return minimum integer k such that all bananas can be eaten within h hours
+        '''
         l,r = 1, max(piles)
         speed = max(piles)
         

@@ -1,12 +1,19 @@
 class Solution:
     def largestRectangleArea(self, heights: list[int]) -> int:
-        
+        '''
+        given heights representing histogram's bar height where width of each bar is 1
+        return the area of the largest rectangle in the histogram
+        '''
         stack = [] # (index, height)
         largest = 0
         
         for i, h in enumerate(heights):
+            # startI keeps track of where the area starts
             startI = i
+            
             while stack and stack[-1][1] > h:
+                # calculates area while cur height is less than the previous
+                # ie. the area of bar in stack no longer extends
                 prevI, prevH = stack.pop()
                 largest = max(largest, prevH * (i - prevI))
                 startI = prevI
@@ -20,6 +27,8 @@ class Solution:
             largest = max(largest, h * (len(heights) - i))
             
         return largest
+    
+    
     
     
 solution = Solution()

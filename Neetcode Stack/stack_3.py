@@ -1,8 +1,12 @@
 class Solution:
     def evalRPN(self, tokens: list[str]) -> int:
+        '''
+        Given array of strings tokens in reverse polish notation
+        return integer that represents value of the expression
+        '''
         stack = []
         for c in tokens:
-            
+            # performs math operation and reappends new value to stack
             if c == "+":
                 stack.append(stack.pop() + stack.pop())
                 

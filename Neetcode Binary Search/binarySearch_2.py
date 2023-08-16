@@ -1,11 +1,19 @@
-import math
 class Solution:
     def searchMatrix(self, matrix: list[list[int]], target: int) -> bool:
+        '''
+        given m x n matrix with two properties: 
+            - each row sorted in non-decreasing order
+            - first integer of each row greater than last int of prev row
+        given target, return true if target is in matri or false otherwise
+        O(log(m * n))
+        '''
+        # Binary search solution
         top, bottom = 0, len(matrix) - 1
         l, r = 0, len(matrix[0]) - 1
         
+        # searching for row where target is within range of 0th and -1th intger of that row
         while top <= bottom:
-            row = top + math.floor((bottom - top) / 2)
+            row = top + ((bottom - top) // 2)
             if matrix[row][r] < target:
                 top = row + 1
             elif matrix[row][l] > target:
@@ -16,8 +24,9 @@ class Solution:
             else:
                 break
             
+        # searching for target in row    
         while l <= r:
-            mid = l + math.floor((r - l) / 2)
+            mid = l + ((r - l) // 2)
             if matrix[row][mid] == target:
                 return True
             elif matrix[row][mid] > target:
@@ -28,7 +37,7 @@ class Solution:
         return False
        
        
-       #Non Binary Search solution (Brute force)
+        # Brute Force Solution O(m * n)
        
     #    row = len(matrix)
     #    col = len(matrix[0])

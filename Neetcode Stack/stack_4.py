@@ -1,12 +1,15 @@
 class Solution:
     def generateParenthesis(self, n: int) -> list[str]:
-        
-        #Solution using stack
-        
+        '''
+        Given n pairs of arentheses, write function to generate all combinations of well formed parenthesis
+        '''
+        # Solution using stack
         stack = []
         valid = []
         
+        # Recursion
         def dfs(openN: int, closeN: int):
+            # Add the new combination of well formed parenthesis to result
             if openN == closeN == n:
                 valid.append("".join(stack))
                 return
@@ -33,10 +36,10 @@ class Solution:
                 valid.append(s)
                 return
             
+            # we don't need to remove the added parenthesis bc, it's only added upon running recursion
+            # so once we exit the recursion (bc it didn't work), then the s go back to its prev version. 
+            # ie. if "(()))" didn't work, we exit the recursion and s would be the prev string, "(())"
             if openN < n:
-                # we don't need to remove the added parenthesis bc, it's only added upon running recursion
-                # so once we exit the recursion (bc it didn't work), then the s go back to its prev version. 
-                # ie. if "(()))" didn't work, we exit the recursion and s would be the prev string, "(())"
                 dfs(openN + 1, closeN, s + "(")
 
             if closeN < openN:

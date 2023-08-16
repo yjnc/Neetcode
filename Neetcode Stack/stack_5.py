@@ -1,5 +1,9 @@
 class Solution:
     def dailyTemperatures(self, temp: list[int]) -> list[int]:
+        '''
+        Given temperatures return an array answer such that answer[i] is number of days to wait after ith day to get warmer temp
+        if no future day possible, answer[i] = 0
+        '''
         # stack will store index of values in decreasing order
         stack = []
         res = [0] * len(temp)
@@ -8,7 +12,9 @@ class Solution:
         stack.append(0)
         
         for i in range(1, len(temp)):
+            # compare temp value at top to cur temp
             while stack and temp[i] > temp[stack[-1]]:
+                # add the difference in index bt cur and top value at stack
                 res[stack[-1]] = i - stack[-1]
                 stack.pop()
             stack.append(i)
