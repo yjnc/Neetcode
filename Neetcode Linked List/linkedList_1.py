@@ -8,7 +8,7 @@ class ListNode:
         
         
         
-# Personally created LinkedList class with leetcode problem function, reverseList
+# Personally created LinkedList class for running leetcode problem function
 class LinkedList:
     def __init__(self, head=None) -> None:
         self.head = head
@@ -25,10 +25,13 @@ class LinkedList:
             self.head = node    
     
     def printList(self):
+        llist = []
         cur = self.head
         while cur:
-            print(cur.val)
-            cur = cur.next
+            llist.append(cur.val)
+            cur = cur.next       
+          
+        return llist
         
     def reverseList(self):
         '''
@@ -58,4 +61,4 @@ llist.append(4)
 llist.append(5)
 
 llist.reverseList()
-llist.printList()
+print(llist.printList())

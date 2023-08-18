@@ -2,112 +2,72 @@ from typing import Optional
 
 # Definition for singly-linked list.
 class ListNode:
-    def __init__(self, x):
-        self.val = x
-        self.next = None
+    def __init__(self, val=0, next=None):
+        self.val = val
+        self.next = next
         
-        
-# Personally created LinkedList class with leetcode problem function, reverseList
-class LinkedList:
-    def __init__(self, head=None, length=0) -> None:
-        self.head = head
-        self.length = length
-        
-    def append(self, val):
-        node = ListNode(val)
-        cur = self.head
-        
-        if cur:
-            while cur.next:
-                cur = cur.next
-            cur.next = node
-        else:
-            self.head = node   
-            
-        self.length += 1 
-    
-    def printList(self):
-        cur = self.head
-        while cur:
-            print(cur.val)
-            cur = cur.next
-            
-    def createCycle(self, pos: int):
-        '''
-        Creates a cycle at the given position
-        
-        *Assumes pos is always a positive integer
-        '''        
-        # for when pos is negative, convert it to the positive index
-        if pos < 0:
-            pos = self.length + pos
-        
-        # if pos is 0 and the list only has one node,
-        # it is not considered a cycle with one node pointing back to itself
-        if pos == 0 and self.length == 1:
-            return False
-        
-        # loop until we reach the node in position to create cycle
-        cur = self.head
-        for i in  range(1, pos + 1):
-            cur = cur.next
-            
-        kthNode = cur
-        
-        # adjust node's next pointer to be at the given position
-        while cur.next:
-            cur = cur.next
-        cur.next = kthNode
-        
-        
-            
-            
 class Solution:
-    def hasCycle(self, head: Optional[ListNode]) -> bool:
+    def reorderList(self, head: Optional[ListNode]) -> None:
         '''
-        Given head (head of linked list), determine if list has a cycle
-        return true if there is a cycle, else false.
-        
-        Cycle:
-            - some node in list can be reached again by continuously following the next pointer
-            - internally, pos is used to denote the index of node that tail's next pointer is connected to
-            - pos is NOT passed as a param
+        Given head of singly linked-list L0 -> L1 -> ... -> Ln-1 -> Ln
+        Reorder list to be: L0 -> Ln -> L1 -> Ln-1 -> L2 -> Ln-2 -> ...
+        Do not return anything, modify head in-place instead.
         '''
         
-        # Floyd's Tortoise & Hare Algorithm O(n)
-        fast = head
-        
-        # Checking fast & fast.next to ensure it hasn't reached the end already
+        # O(n) solution
+        # Find the middle of linked list
+        slow, fast = head, head.next
         while fast and fast.next:
-            # slow pointer (head) moves by one, fast pointer moves by two
-            head = head.next
+            slow = slow.next
             fast = fast.next.next
+           
+        # Reverse the order of the second half of the linked list    
+        nodeB = slow.next
+        prev = slow.next = None
+        while nodeB:
+            # store next node before modifying
+            temp = nodeB.next
             
-            # slow and fast pointer will only meet if there is a cycle
-            # as fast pointer slowly closes the gap between the slow pointer
-            if head == fast:
-                return True
+            # reverse the order
+            nodeB.next = prev
+            prev = nodeB
+            nodeB = temp
+        
+        # Merge / Reorder list
+        nodeA, nodeB = head, prev
+        while nodeB:
+            # store next node before modifying
+            tempA, tempB = nodeA.next, nodeB.next
             
-        return False
+            # merge
+            nodeA.next = nodeB
+            nodeB.next = tempA
+            
+            # update pointers to next node
+            nodeA, nodeB = tempA, tempB
         
         
         
-# head = [3,2,0,-4], pos = 1 # True
-llist = LinkedList()
-llist.append(3)
-llist.append(2)
-llist.append(0)
-llist.append(-4)
-llist.createCycle(1)
-
-# head = [1,2], pos = 0 # True
-llist.append(1)
-llist.append(2)
-llist.createCycle(0)
-
-# head = [1], pos = 0 # False
-llist.append(1)
-llist.createCycle(-1)
-
-solution = Solution()
-print(solution.hasCycle(llist.head))
+        # Less memory efficient solution
+        # move linked list to an array format
+        arr = []
+        cur = head
+        while cur:
+            arr.append(cur)
+            cur = cur.next
+            
+        # reorder the array into desired order
+        reorderArr = []
+        l, r = 0, len(arr) - 1
+        while l <= r:
+            reorderArr.append(arr[l])
+            reorderArr.append(arr[r])
+            l += 1
+            r -= 1
+        
+        # modify the linked list using the reordered array
+        cur = head
+        for i in range(1, len(reorderArr)):
+            cur.next = reorderArr[i]
+            cur = cur.next
+            
